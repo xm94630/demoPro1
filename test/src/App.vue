@@ -17,12 +17,12 @@ let widgetUrl = "./components/";
 
 //配置文件
 let widgetConfig = [{
-  widgetType:"JY",
+  widgetType:"XM",
   config:{
     css:"background:red"
   }
 },{
-  widgetType:"XM",
+  widgetType:"JY",
   config:{
     css:"background:yellow"
   }
