@@ -1,1 +1,0 @@
-find . -name '*.vue' -exec bash -c 'node convert.js < "{}" > "{}@Compile.js"' \;
