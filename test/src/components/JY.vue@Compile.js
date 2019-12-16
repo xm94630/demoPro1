@@ -2,13 +2,15 @@
 import {widget} from './myJs';
 export default {
 	template: `
-<div class="JY" @click="clickFun">
+<div class="constomWidget JY" @click="clickFun">
   鲸鱼，{{str}}，点击我还有弹层。
   <div>{{str2}}</div>
+  <div>配置为：{{myConfig}}</div>
 </div>`,
   name: 'JY',
   props: {
-    msg: String
+    msg: String,
+    myConfig:null,
   },
   data:function() {
     return {

@@ -1,16 +1,4 @@
-<template>
-  <div id="app">
-    <template v-for="(one,key) in widgetConfig">
-      <component
-        :key = "key"
-        :is = "one.myWidget"
-        :myConfig= "one.config"
-      ></component>
-    </template>
-  </div>
-</template>
 
-<script>
 //全局配置
 //日后要放到单独的静态资源服务器。这里配置资源的位置：
 let widgetUrl = "./components/";
@@ -39,6 +27,16 @@ widgetConfig = widgetConfig.map((one)=>{
 
 
 export default {
+	template: `
+<div id="app">
+  <template v-for="(one,key) in widgetConfig">
+    <component
+      :key = "key"
+      :is = "one.myWidget"
+      :myConfig= "one.config"
+    ></component>
+  </template>
+</div>`,
   name: 'app',
   components: {
   },
@@ -48,11 +46,3 @@ export default {
     }
   }
 }
-</script>
-
-<style>
-.constomWidget{
-  background: #ccc;
-  margin-bottom: 10px;
-}
-</style>

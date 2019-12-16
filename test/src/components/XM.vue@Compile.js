@@ -2,12 +2,13 @@
 import {xxx} from '../js/lala.js'
 export default {
 	template: `
-<div class="XM" @click="yyy">
-  这是一个可爱的组件。
+<div class="constomWidget XM" @click="yyy">
+  这是一个可爱的组件。配置为：{{myConfig}}
 </div>`,
   name: 'XuMing',
   props: {
-    msg: String
+    msg: String,
+    myConfig:null,
   },
   methods:{
     yyy:xxx,

@@ -1,3 +1,1 @@
-find . -name '*.vue' -exec bash -c 'node convert.js < "{}" > "{}.js"' \;
-
-find . -name '*.vue' -exec bash -c 'node convert.js < "{}" > "{}_xuming.js"' \;
+find . -name '*.vue' -exec bash -c 'node convert.js < "{}" > "{}@Compile.js"' \;
