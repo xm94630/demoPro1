@@ -1,8 +1,10 @@
 
+import {widget} from './myJs';
 export default {
 	template: `
 <div class="JY" @click="clickFun">
-  鲸鱼，{{str}}，点击我还有弹层。我是单独的js呢，看看好用不。
+  鲸鱼，{{str}}，点击我还有弹层。
+  <div>{{str2}}</div>
 </div>`,
   name: 'JY',
   props: {
@@ -11,6 +13,7 @@ export default {
   data:function() {
     return {
       str:'我爱你',
+      str2:widget.name,
       clickFun:function(){alert('哈哈哈')}
     }
   },

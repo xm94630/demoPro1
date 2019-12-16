@@ -2,7 +2,7 @@
   <div id="app">
     我是APP哦
     <XM/>
-    <JY/>
+    <!-- <JY/> -->
     <component
       :is = "JY"
     ></component>
@@ -11,15 +11,24 @@
 
 <script>
 import XM from './components/XM.vue'
-import JY from './components/xxx'
+//import JY from './components/JY.vue'
+//import JY from './components/JY.vue_xuming'
 
-let config = ['JY'];
-let thisWidget = getWidget(config[0]);
+let config = [{
+  widgetName:'JY',
+  id:'01',
+},{
+  widgetName:'JY',
+  id:'01',
+}];
+let JY = getWidget(config[0].widgetName);
 function getWidget(){
-  let w = require('./components/xxx');
-  console.log(w)
+  let w = require('./components/JY.vue_xuming').default; 
   return w;
 }
+
+console.log('==>')
+console.log(JY)
 
 
 
@@ -31,7 +40,7 @@ export default {
   },
   data:function(){
     return {
-      JY:thisWidget
+      JY:JY
     }
   }
 }
