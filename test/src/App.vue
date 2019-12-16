@@ -29,7 +29,7 @@ let widgetConfig = [{
 }];
 
 widgetConfig = widgetConfig.map((one)=>{
-  one.myWidget = require(widgetUrl + one.widgetType + '.vue@Compile').default
+  one.myWidget = require(widgetUrl + one.widgetType + '/' + one.widgetType + '.vue@Compile').default
   return one;
 })
 

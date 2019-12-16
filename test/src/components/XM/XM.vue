@@ -1,11 +1,10 @@
 <template>
-  <div class="constomWidget XM" @click="yyy">
+  <div class="constomWidget XM">
     这是一个可爱的组件。配置为：{{myConfig}}
   </div>
 </template>
 
 <script>
-import {xxx} from '../js/lala.js'
 export default {
   name: 'XuMing',
   props: {
@@ -13,7 +12,6 @@ export default {
     myConfig:null,
   },
   methods:{
-    yyy:xxx,
   }
 }
 </script>

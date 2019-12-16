@@ -1,8 +1,7 @@
 
-import {xxx} from '../js/lala.js'
 export default {
 	template: `
-<div class="constomWidget XM" @click="yyy">
+<div class="constomWidget XM">
   这是一个可爱的组件。配置为：{{myConfig}}
 </div>`,
   name: 'XuMing',
@@ -11,6 +10,5 @@ export default {
     myConfig:null,
   },
   methods:{
-    yyy:xxx,
   }
 }
