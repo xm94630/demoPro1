@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "vue2js":"find . -name '*.vue' -exec bash -c 'node convert.js < \"{}\" > \"{}@Compile.js\"' \\;" 
+    "compileWidget":"node ./compileWidget/index"
   },
   "dependencies": {
     "core-js": "^3.4.3",
