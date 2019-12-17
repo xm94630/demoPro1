@@ -18,5 +18,5 @@ export default {
 
 
 <style scoped>
-
+@import url("./css/index.css"); 
 </style>

@@ -1,0 +1,51 @@
+
+//全局配置
+//日后要放到单独的静态资源服务器。这里配置资源的位置：
+let widgetUrl = "./components/";
+
+//配置文件
+let widgetConfig = [{
+  widgetType:"XM",
+  config:{
+    css:"background:red"
+  }
+},{
+  widgetType:"JY",
+  config:{
+    css:"background:yellow"
+  }
+}];
+
+widgetConfig = widgetConfig.map((one)=>{
+  let path = widgetUrl + one.widgetType + '/' + one.widgetType + '.vue@Compile';
+  console.log(path)
+  one.myWidget = require(path).default
+  return one;
+})
+
+console.log(widgetConfig)
+
+
+
+
+export default {
+	template: `
+<div id="app">
+  啦啦
+  <template v-for="(one,key) in widgetConfig">
+    <component
+      :key = "key"
+      :is = "one.myWidget"
+      :myConfig= "one.config"
+    ></component>
+  </template>
+</div>`,
+  name: 'app',
+  components: {
+  },
+  data:function(){
+    return {
+      widgetConfig:widgetConfig
+    }
+  }
+}

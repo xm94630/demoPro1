@@ -1,7 +1,12 @@
 
 const exec = require('child_process').exec;
+const path = require('path');
+const rootPath = path.resolve(__dirname, '..');
+
+
 console.log("=========================== vue组件编译 ===========================");
-let holder = exec(`find . -name '*.vue' -exec bash -c 'node convert.js < "{}" > "{}@Compile.js"' \\;`);
+console.log(rootPath)
+let holder = exec(`find '${rootPath}' -name '*.vue' -exec bash -c 'node ./compileWidget/convert.js < "{}" > "{}@Compile.js"' \\;`);
 console.log('【1】开始vue编译')
 holder.stdout.on('data', function(data) {
     console.log(data)
