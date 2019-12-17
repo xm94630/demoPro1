@@ -21,15 +21,9 @@ widgetConfig = widgetConfig.map((one)=>{
   return one;
 })
 
-console.log(widgetConfig)
-
-
-
-
 export default {
 	template: `
 <div id="app">
-  啦啦
   <template v-for="(one,key) in widgetConfig">
     <component
       :key = "key"

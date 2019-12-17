@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    啦啦
     <template v-for="(one,key) in widgetConfig">
       <component
         :key = "key"
@@ -33,11 +32,6 @@ widgetConfig = widgetConfig.map((one)=>{
   one.myWidget = require(widgetUrl + one.widgetType + '/' + one.widgetType + '.vue@Compile').default
   return one;
 })
-
-console.log(widgetConfig)
-
-
-
 
 export default {
   name: 'app',
