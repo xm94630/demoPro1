@@ -49,9 +49,6 @@ let pageConfig ={
     }],
   }
 }
-  for(let key in pageConfig.components){
-    pageConfig.components[key].jsCode = ''
-  } 
 
 function xxx(name,url) {
     return new Promise(function (resolve, reject) {
@@ -59,9 +56,10 @@ function xxx(name,url) {
             var html='';
             req.on('data',(data)=>{html+=data;});
             req.on('end',()=>{
+              html = html.replace('export default ','window.'+name+'=')
+              console.log(html);
               eval(html);
-              console.log(html)
-              resolve(html);
+              resolve();
             });
             req.on('error',(e)=>{reject(e.message);});
         });
@@ -82,12 +80,19 @@ export default {
   },
   methods:{
     zzz(that){
-      xxx("name1",'http://127.0.0.1:9000/components/XM/XM.vue@Compile.js').then(()=>{
-        for(let key in pageConfig.components){
-          pageConfig.components[key].jsCode = window.aaa;
-          that.$forceUpdate();
-        } 
-      })
+
+      for(let key in pageConfig.components){
+
+
+        xxx(key,'http://127.0.0.1:9000/components/'+key+'/'+key+'.vue@Compile.js').then(()=>{
+          for(let key in pageConfig.components){
+            pageConfig.components[key].jsCode = window[key];
+            that.$forceUpdate();
+          } 
+        })
+      } 
+
+
     }
   },
   data:function(){
