@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    1231
+    组件：
     <!-- 各个组件渲染 -->
     <template v-for="(arr) in pageConfig.components">
       <template v-for="(item) in arr">
@@ -51,7 +51,7 @@ let pageConfig ={
   }
 }
 
-function loadWidgetFromRemote(name,url) {
+function loadWidgetCodeFromRemote(name,url) {
     return new Promise(function (resolve, reject) {
         require('http').get(url,function(req){
             var html='';
@@ -67,6 +67,24 @@ function loadWidgetFromRemote(name,url) {
     })
 }
 
+function loadWidgetCssFromRemote(name,url) {
+    return new Promise(function (resolve, reject) {
+        require('http').get(url,function(req){
+            var css='';
+            req.on('data',(data)=>{css+=data;});
+            req.on('end',()=>{
+              var style = document.createElement('style');
+              style.type = 'text/css';
+              style.innerHTML=css;
+              document.getElementsByTagName('head').item(0).appendChild(style);
+              resolve();
+            });
+            req.on('error',(e)=>{reject(e.message);});
+        });
+    })
+}
+
+
 
 
 // //引入组件对应的js模块和css文件
@@ -80,14 +98,15 @@ export default {
   components: {
   },
   methods:{
-    getWidgetsAsync(){
+    getAllWidgetsAsync(){
       for(let key in pageConfig.components){
-        loadWidgetFromRemote(key,widgetUrl+key+'/'+key+'.vue@Compile.js').then(()=>{
+        loadWidgetCodeFromRemote(key,widgetUrl+key+'/'+key+'.vue@Compile.js').then(()=>{
           for(let key in pageConfig.components){
             //针对于data为对象的情况，如果不这么用而直接等号赋值，就需要使用$forceUpdate来更新。
             Vue.set(pageConfig.components[key], 'jsCode', window[key])
           } 
         })
+        loadWidgetCssFromRemote(key,widgetUrl+key+'/css/index.css').then(()=>{});
       }
     }
   },
@@ -97,7 +116,7 @@ export default {
     }
   },
   created(){
-    this.getWidgetsAsync();
+    this.getAllWidgetsAsync();
   }
 }
 </script>
