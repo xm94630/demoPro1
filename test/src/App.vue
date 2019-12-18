@@ -1,51 +1,27 @@
 <template>
   <div id="app">
-
-
-
+    111
     <!-- 各个组件渲染 -->
-    <template v-for="(arr) in widgetConfig2.components">
+    <template v-for="(arr) in pageConfig.components">
       <template v-for="(item) in arr">
         <component
           :key = "item.id"
-          :is = "arr.myWidget"
+          :is = "arr.jsCode"
           :myConfig= "item"
         ></component>
       </template>
     </template>
 
-
-
-
-    <!-- <template v-for="(one,key) in widgetConfig">
-      <component
-        :key = "key"
-        :is = "one.myWidget"
-        :myConfig= "one.config"
-      ></component>
-    </template> -->
   </div>
 </template>
 
 <script>
 //全局配置
 //日后要放到单独的静态资源服务器。这里配置资源的位置：
-let widgetUrl = "./components/";
+//let widgetUrl = "./components/";
+//let widgetUrl = "http://127.0.0.1:9000/components/";
 
-//配置文件
-let widgetConfig = [{
-  widgetType:"XM",
-  config:{
-    css:"background:red"
-  }
-},{
-  widgetType:"JY",
-  config:{
-    css:"background:yellow"
-  }
-}];
-
-let widgetConfig2 ={
+let pageConfig ={
   "canvas":{},
   "components":{
     "XM":[{
@@ -74,34 +50,32 @@ let widgetConfig2 ={
   }
 }
 
-for(let key in widgetConfig2.components){
-  widgetConfig2.components[key].myWidget = require(widgetUrl + key + '/' + key + '.vue@Compile').default
-} 
-
-
-
-widgetConfig = widgetConfig.map((one)=>{
-  one.myWidget = require(widgetUrl + one.widgetType + '/' + one.widgetType + '.vue@Compile').default
-  return one;
+function xxx(name,url) {
+    return new Promise(function (resolve, reject) {
+        require('http').get(url,function(req){
+            var html='';
+            req.on('data',(data)=>{html+=data;});
+            req.on('end',()=>{
+              eval(html);
+              console.log(html)
+              resolve(html);
+            });
+            req.on('error',(e)=>{reject(e.message);});
+        });
+    })
+}
+xxx("name1",'http://127.0.0.1:9000/components/XM/XM.vue@Compile.js').then(()=>{
+  for(let key in pageConfig.components){
+    pageConfig.components[key].jsCode = window.aaa
+  } 
 })
 
-function loadCSS(url){
-  var link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.url = url;
-  document.getElementsByTagName('head')[0].appendChild(link);
-}
 
-function loadAllWidgetConfig(widgetConfig){
-  let css = require(widgetUrl+"XM/css/index.css")
-  let css2 = require(widgetUrl+"JY/css/index.css")
-  loadCSS(css);
-  loadCSS(css2);
-  return widgetConfig;
-}
-
-loadAllWidgetConfig();
+// //引入组件对应的js模块和css文件
+// for(let key in pageConfig.components){
+//   pageConfig.components[key].jsCode = require(widgetUrl + key + '/' + key + '.vue@Compile.js').default
+//   require(widgetUrl + key + '/css/index.css');
+// } 
 
 export default {
   name: 'app',
@@ -109,8 +83,7 @@ export default {
   },
   data:function(){
     return {
-      widgetConfig:widgetConfig,
-      widgetConfig2:widgetConfig2,
+      pageConfig
     }
   }
 }
@@ -118,7 +91,6 @@ export default {
 
 <style>
 .constomWidget{
-  background: #ccc;
   margin-bottom: 10px;
 }
 </style>

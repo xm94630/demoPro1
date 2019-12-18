@@ -3,7 +3,7 @@ import {widget} from './libs/myJs';
 export default {
 	template: `
 <div class="constomWidget JY">
-  <div @click="clickFun">鲸鱼，{{str}}，点击我还有弹层!</div>
+  <div @click="clickFun">鲸鱼，{{str}}，点击我还有弹层</div>
   <div>{{str2}}</div>
   <div>配置为：{{myConfig}}</div>
 </div>`,
