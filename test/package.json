@@ -6,10 +6,11 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "compileWidget":"node ./compileWidget/index"
+    "compileWidget": "node ./compileWidget/index"
   },
   "dependencies": {
     "core-js": "^3.4.3",
+    "element-ui": "2.6.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
@@ -31,7 +32,7 @@
       "eslint:recommended"
     ],
     "rules": {
-      "no-console":"off"
+      "no-console": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
@@ -42,4 +43,3 @@
     "last 2 versions"
   ]
 }
-
