@@ -16,10 +16,11 @@
 </template>
 
 <script>
+import Vue from "vue";
 //全局配置
 //日后要放到单独的静态资源服务器。这里配置资源的位置：
 //let widgetUrl = "./components/";
-//let widgetUrl = "http://127.0.0.1:9000/components/";
+let widgetUrl = "http://127.0.0.1:9000/components/"; //远程检查地址
 
 let pageConfig ={
   "canvas":{},
@@ -50,7 +51,7 @@ let pageConfig ={
   }
 }
 
-function xxx(name,url) {
+function loadWidgetFromRemote(name,url) {
     return new Promise(function (resolve, reject) {
         require('http').get(url,function(req){
             var html='';
@@ -79,20 +80,15 @@ export default {
   components: {
   },
   methods:{
-    zzz(that){
-
+    getWidgetsAsync(){
       for(let key in pageConfig.components){
-
-
-        xxx(key,'http://127.0.0.1:9000/components/'+key+'/'+key+'.vue@Compile.js').then(()=>{
+        loadWidgetFromRemote(key,widgetUrl+key+'/'+key+'.vue@Compile.js').then(()=>{
           for(let key in pageConfig.components){
-            pageConfig.components[key].jsCode = window[key];
-            that.$forceUpdate();
+            //针对于data为对象的情况，如果不这么用而直接等号赋值，就需要使用$forceUpdate来更新。
+            Vue.set(pageConfig.components[key], 'jsCode', window[key])
           } 
         })
-      } 
-
-
+      }
     }
   },
   data:function(){
@@ -101,8 +97,7 @@ export default {
     }
   },
   created(){
-    let that = this;
-    this.zzz(that);
+    this.getWidgetsAsync();
   }
 }
 </script>
