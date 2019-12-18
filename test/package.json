@@ -9,6 +9,7 @@
     "compileWidget": "node ./compileWidget/index"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "core-js": "^3.4.3",
     "element-ui": "2.6.3",
     "vue": "^2.6.10"
