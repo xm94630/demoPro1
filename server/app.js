@@ -12,6 +12,10 @@ const diy2 = require('./routes/diy2')
 // error handler
 onerror(app)
 
+//解决跨域
+var cors = require('koa2-cors');
+app.use(cors());
+
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']

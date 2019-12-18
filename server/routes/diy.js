@@ -8,6 +8,8 @@ const url = "";
 
 //获取大屏位置配置信息(图表、表格)
 router.get('/view/info', async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Credentials', true);
+  
   let code = ctx.request.query.diyViewCode;
   let jsonData = null;
   
