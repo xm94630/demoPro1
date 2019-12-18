@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    111
+    1231
     <!-- 各个组件渲染 -->
     <template v-for="(arr) in pageConfig.components">
       <template v-for="(item) in arr">
@@ -49,6 +49,9 @@ let pageConfig ={
     }],
   }
 }
+  for(let key in pageConfig.components){
+    pageConfig.components[key].jsCode = ''
+  } 
 
 function xxx(name,url) {
     return new Promise(function (resolve, reject) {
@@ -64,11 +67,7 @@ function xxx(name,url) {
         });
     })
 }
-xxx("name1",'http://127.0.0.1:9000/components/XM/XM.vue@Compile.js').then(()=>{
-  for(let key in pageConfig.components){
-    pageConfig.components[key].jsCode = window.aaa
-  } 
-})
+
 
 
 // //引入组件对应的js模块和css文件
@@ -81,10 +80,24 @@ export default {
   name: 'app',
   components: {
   },
+  methods:{
+    zzz(that){
+      xxx("name1",'http://127.0.0.1:9000/components/XM/XM.vue@Compile.js').then(()=>{
+        for(let key in pageConfig.components){
+          pageConfig.components[key].jsCode = window.aaa;
+          that.$forceUpdate();
+        } 
+      })
+    }
+  },
   data:function(){
     return {
-      pageConfig
+      pageConfig:pageConfig
     }
+  },
+  created(){
+    let that = this;
+    this.zzz(that);
   }
 }
 </script>
