@@ -2,8 +2,8 @@
 import Vue from "vue";
 //全局配置
 //日后要放到单独的静态资源服务器。这里配置资源的位置：
-//let widgetUrl = "./components/";
-let widgetUrl = "http://127.0.0.1:9000/components/"; //远程检查地址
+let widgetUrl = "./components/";
+//let widgetUrl = "http://127.0.0.1:9000/components/"; //远程检查地址
 
 let pageConfig ={
   "canvas":{},
@@ -31,6 +31,14 @@ let pageConfig ={
         text:"我是JY组件的配置哦"
       },
     }],
+    "LL":[{
+      "id": "0004",
+      "type": "LL",
+      "css":{},
+      "widgetOption":{
+        text:"我是LL组件的配置哦"
+      },
+    }]
   }
 }
 
@@ -96,6 +104,13 @@ export default {
   components: {
   },
   methods:{
+    getAllWidgetsLocal(){
+      for(let key in pageConfig.components){
+        console.log(widgetUrl + key + '/' + key + '.vue')
+        pageConfig.components[key].jsCode = require(widgetUrl + key + '/' + key + '.vue').default
+        require(widgetUrl + key + '/css/index.css');
+      } 
+    },
     getAllWidgetsAsync(){
       for(let key in pageConfig.components){
         loadWidgetCodeFromRemote(key,widgetUrl+key+'/'+key+'.vue@Compile.js').then(()=>{
@@ -114,6 +129,7 @@ export default {
     }
   },
   created(){
-    this.getAllWidgetsAsync();
+    //this.getAllWidgetsAsync();
+    this.getAllWidgetsLocal()
   }
 }
